@@ -1,0 +1,9 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# IDEs and editors
+.vs/
+obj/
+bin/
+poscloud-aspnet-core/src/HC.POSCloud.Web.Host/App_Data/Logs/
+poscloud-aspnet-core/src/HC.POSCloud.Web.Mvc/App_Data/Logs/
+poscloud-aspnet-core/src/HC.POSCloud.Migrator/Logs/Logs.txt

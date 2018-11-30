@@ -1,16 +1,16 @@
-import { AppMenus } from './AppMenus';
 import { Component, OnInit } from '@angular/core';
 import { SignalRAspNetCoreHelper } from '@shared/helpers/SignalRAspNetCoreHelper';
-import { AppComponentBase } from '@shared/component-base/app-component-base';
+import { AppComponentBase } from '@shared/app-component-base';
 import { Injector } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { SettingsService, TitleService, MenuService, MenuItem } from '@yoyo/theme';
+import { SettingsService, TitleService, MenuService, Menu } from '@delon/theme';
 import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HostBinding } from '@angular/core';
 import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { AppConsts } from '@shared/AppConsts';
+import { MenuItem } from '@shared/layout/menu-item';
 
 @Component({
   selector: 'app-app',
@@ -35,37 +35,106 @@ export class AppComponent extends AppComponentBase
   // 全局的菜单
   Menums = [
     // 首页
-    new MenuItem('主页', '', 'anticon anticon-home', '/app/home'),
-    // 系统管理
+    new MenuItem(this.l('HomePage'), '', 'anticon anticon-home', '/app/home'),
+    new MenuItem('基础数据',
+      '',
+      'anticon anticon-hdd',
+      '/app/home',
+      [
+        new MenuItem(
+          '零售客户',
+          'Pages.Tenants',
+          '',
+          '/app/tenants',
+        ),
+      ]),
     new MenuItem(
-      '系统管理',
+      '商品中心',
+      '',
+      'anticon anticon-barcode',
+      '/app/home',
+    ),
+    new MenuItem(
+      '店铺中心',
+      '',
+      'anticon anticon-shop',
+      '/app/home',
+      [
+        new MenuItem(
+          '店铺管理',
+          'Pages.Tenants',
+          '',
+          '/app/tenants',
+        ),
+        new MenuItem(
+          '店铺库存',
+          'Pages.Roles',
+          '',
+          '/app/roles',
+        ),
+        new MenuItem(
+          '销售记录',
+          'Pages.Users',
+          '',
+          '/app/users',
+        ),
+      ]
+    ),
+    new MenuItem(
+      '会员中心',
+      '',
+      'anticon anticon-user',
+      '/app/home',
+      [
+        new MenuItem(
+          '会员管理',
+          'Pages.Tenants',
+          '',
+          '/app/tenants',
+        ),
+        new MenuItem(
+          '积分查询',
+          'Pages.Roles',
+          '',
+          '/app/roles',
+        ),
+        new MenuItem(
+          '会员设置',
+          'Pages.Users',
+          '',
+          '/app/users',
+        ),
+      ]
+    ),
+
+    new MenuItem(
+      '系统设置',
       '',
       'anticon anticon-setting',
-      '',
-      [
-        //租户
+      '/app/home'
+      , [
+        // 租户
         new MenuItem(
-          '租户管理',
+          this.l('Tenants'),
           'Pages.Tenants',
           '',
           '/app/tenants',
         ),
         // 角色
         new MenuItem(
-          '角色管理',
+          this.l('Roles'),
           'Pages.Roles',
           '',
           '/app/roles',
         ),
         // 用户
         new MenuItem(
-          '用户管理',
+          this.l('Users'),
           'Pages.Users',
           '',
           '/app/users',
         )
-      ]
-    )
+      ]),
   ];
 
   constructor(
@@ -78,13 +147,16 @@ export class AppComponent extends AppComponentBase
     super(injector);
 
     // 创建菜单
-    this.menuService.menus = AppMenus.Menus;
+
+    const arrMenu = new Array<Menu>();
+    this.processMenu(arrMenu, this.Menums);
+    this.menuService.add(arrMenu);
   }
 
   ngOnInit(): void {
     this.router.events
-      .pipe(filter(evt => evt instanceof NavigationEnd))
-      .subscribe(() => this.titleSrv.setTitle('ABP信息化平台'));
+      .pipe(filter(evt => evt instanceof NavigationEnd));
+    // .subscribe(() => this.titleSrv.setTitle('零售终端云平台'));
 
     // 注册通知信息
     // SignalRAspNetCoreHelper.initSignalR();
@@ -108,5 +180,28 @@ export class AppComponent extends AppComponentBase
   ngAfterViewInit(): void {
     // ($ as any).AdminBSB.activateAll();
     // ($ as any).AdminBSB.activateDemo();
+  }
+
+  // 处理生成菜单
+  processMenu(resMenu: Menu[], menus: MenuItem[], isChild?: boolean) {
+    menus.forEach(item => {
+      let subMenu: Menu;
+      subMenu = {
+        text: item.displayName,
+        link: item.route,
+        icon: `${item.icon}`,
+        hide: item.hide,
+      };
+      if (item.permission !== '' && !this.isGranted(item.permission)) {
+        subMenu.hide = true;
+      }
+
+      if (item.childMenus && item.childMenus.length > 0) {
+        subMenu.children = [];
+        this.processMenu(subMenu.children, item.childMenus);
+      }
+
+      resMenu.push(subMenu);
+    });
   }
 }

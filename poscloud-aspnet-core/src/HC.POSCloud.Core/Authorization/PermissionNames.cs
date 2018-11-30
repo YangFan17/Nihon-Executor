@@ -8,4 +8,11 @@ namespace HC.POSCloud.Authorization
 
         public const string Pages_Roles = "Pages.Roles";
     }
+
+    public static class AppPermissions
+    {
+        public const string Pages = "Pages";
+
+        public const string Pages_Administration = "Pages.Administration";
+    }
 }

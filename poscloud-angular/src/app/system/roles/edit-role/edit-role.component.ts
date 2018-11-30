@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Injector } from '@angular/core';
-import { ModalComponentBase } from '@shared/component-base/modal-component-base';
+import { ModalFormComponentBase } from '@shared/component-base/modal-form-component-base';
 import { RoleDto, ListResultDtoOfPermissionDto, RoleServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Validators } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { Validators } from '@angular/forms';
   templateUrl: './edit-role.component.html',
   styles: []
 })
-export class EditRoleComponent extends ModalComponentBase implements OnInit {
+export class EditRoleComponent extends ModalFormComponentBase<RoleDto> implements OnInit {
 
   @Input() id: number;
   permissions: ListResultDtoOfPermissionDto = null;
@@ -24,6 +24,14 @@ export class EditRoleComponent extends ModalComponentBase implements OnInit {
   }
 
   ngOnInit() {
+
+    this.validateForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      displayName: ['', [Validators.required]],
+      description: [''],
+      permissions: ['']
+    });
+
     this._roleService.getAllPermissions()
       .subscribe((permissions: ListResultDtoOfPermissionDto) => {
         this.permissions = permissions;
@@ -39,11 +47,18 @@ export class EditRoleComponent extends ModalComponentBase implements OnInit {
       })
       .subscribe((result: RoleDto) => {
         this.role = result;
+
+        if (this.role.isStatic) {
+          this.getFormControl('name').disable();
+        }
         this.permissions.items.forEach((item) => {
           this.permissionList.push({
             label: item.displayName, value: item.name, checked: this.checkPermission(item.name), disabled: this.role.isStatic
           });
         });
+
+
+        this.setFormValues(this.role);
       });
   }
 
@@ -52,8 +67,7 @@ export class EditRoleComponent extends ModalComponentBase implements OnInit {
     return this.role.permissions.indexOf(permissionName) != -1;
   }
 
-  save(): void {
-    this.saving = true;
+  protected submitExecute(finisheCallback: Function): void {
     let tmpPermissions = [];
 
     this.permissionList.forEach((item) => {
@@ -66,12 +80,25 @@ export class EditRoleComponent extends ModalComponentBase implements OnInit {
 
     this._roleService.update(this.role)
       .finally(() => {
-        this.saving = false;
+        finisheCallback();
       })
       .subscribe(() => {
         this.notify.info(this.l('SavedSuccessfully'));
-        this.success();
+        this.success(true);
       });
   }
+  protected setFormValues(entity: RoleDto): void {
+    this.setControlVal('name', entity.name);
+    this.setControlVal('displayName', entity.displayName);
+    this.setControlVal('description', entity.description);
+    this.setControlVal('permissions', this.permissionList);
+  }
+  protected getFormValues(): void {
+    this.role.name = this.getControlVal('name');
+    this.role.displayName = this.getControlVal('displayName');
+    this.role.description = this.getControlVal('description');
+    this.permissionList = this.getControlVal('permissions');
+  }
+
 
 }

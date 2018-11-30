@@ -1,4 +1,4 @@
-import { IsTenantAvailableOutputState } from '@shared/service-proxies/service-proxies';
+﻿import { IsTenantAvailableOutputState } from '@shared/service-proxies/service-proxies';
 
 export class AppTenantAvailabilityState {
   static Available: number = IsTenantAvailableOutputState._1;

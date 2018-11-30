@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
@@ -20,8 +20,8 @@ import { LoginService } from './login/login.service';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AbpModule } from '@yoyo/abp';
-import { AdGlobalFooterModule } from '@yoyo/abc';
+import { AbpModule } from 'abp-ng2-module/dist/src/abp.module';
+import { AdGlobalFooterModule } from '@delon/abc';
 
 @NgModule({
   imports: [

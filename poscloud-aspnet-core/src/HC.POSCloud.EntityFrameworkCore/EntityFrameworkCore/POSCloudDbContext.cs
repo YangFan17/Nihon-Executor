@@ -3,6 +3,8 @@ using Abp.Zero.EntityFrameworkCore;
 using HC.POSCloud.Authorization.Roles;
 using HC.POSCloud.Authorization.Users;
 using HC.POSCloud.MultiTenancy;
+using HC.POSCloud.Products;
+using HC.POSCloud.ProductTags;
 
 namespace HC.POSCloud.EntityFrameworkCore
 {
@@ -14,5 +16,9 @@ namespace HC.POSCloud.EntityFrameworkCore
             : base(options)
         {
         }
+
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductTag> ProductTags { get; set; }
+
     }
 }

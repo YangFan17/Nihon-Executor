@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppRouteGuard } from '@shared/auth/auth-route-guard';
-import { HomeComponent } from '@app/system/home/home.component';
+import { HomeComponent } from '@app/home/home.component';
 import { AppComponent } from '@app/app.component';
+// import { AboutComponent } from '@app/about/about.component';
 import { TenantsComponent } from '@app/system/tenants/tenants.component';
 import { RolesComponent } from '@app/system/roles/roles.component';
 import { UsersComponent } from '@app/system/users/users.component';

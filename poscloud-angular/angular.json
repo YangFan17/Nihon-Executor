@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "POSCloud": {
+    "YoyoCmsTemplate": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,19 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/POSCloud",
+            "outputPath": "dist/YoyoCmsTemplate",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "src/assets"
             ],
             "styles": [
               "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css",
@@ -54,16 +49,17 @@
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js",
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js",
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js"
+
+
+
             ]
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -75,26 +71,24 @@
               "buildOptimizer": true
             },
             "hmr": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
-                }
-              ]
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.hmr.ts"
+              }]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "POSCloud:build"
+            "browserTarget": "YoyoCmsTemplate:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "POSCloud:build:production"
+              "browserTarget": "YoyoCmsTemplate:build:production"
             },
             "hmr": {
-              "browserTarget": "POSCloud:build:hmr",
+              "browserTarget": "YoyoCmsTemplate:build:hmr",
               "hmr": true
             }
           }
@@ -102,7 +96,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "POSCloud:build"
+            "browserTarget": "YoyoCmsTemplate:build"
           }
         },
         "test": {
@@ -138,7 +132,7 @@
         }
       }
     },
-    "POSCloud-e2e": {
+    "YoyoCmsTemplate-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -146,11 +140,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "POSCloud:serve"
+            "devServerTarget": "YoyoCmsTemplate:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "POSCloud:serve:production"
+              "devServerTarget": "YoyoCmsTemplate:serve:production"
             }
           }
         },
@@ -166,7 +160,7 @@
       }
     }
   },
-  "defaultProject": "POSCloud",
+  "defaultProject": "YoyoCmsTemplate",
   "schematics": {
     "ng-alain:module": {
       "routing": true,

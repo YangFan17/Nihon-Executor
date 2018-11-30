@@ -1,22 +1,20 @@
-<div class="container">
+﻿<div class="container">
     <div class="top">
         <div class="head">
-            <a [routerLink]="['/']">
-                <img class="logo" src="/assets/images/logos/logo-txt-color-shield.svg">
-            </a>
-        </div>
-        <!-- <div *ngIf="showTenantChange()">
-            <tenant-change></tenant-change>
-        </div> -->
 
-        <!-- <div>
-      <img class="logo" src="/assets/images/52abp_logo.svg">
-      <img class="logo" src="/assets/images/52abp_txt.svg">
-    </div> -->
+        </div>
+
+        <div *ngIf="showTenantChange()">
+            <tenant-change></tenant-change>
+        </div>
+
     </div>
+
     <router-outlet></router-outlet>
+
     <br>
-    <div class="p-lg text-center text-sm">
-        ABP信息服务平台
-    </div>
+    <global-footer [links]="links">
+
+    </global-footer>
+
 </div>

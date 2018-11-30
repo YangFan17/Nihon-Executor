@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { environment } from '@env/environment';
 
-import { preloaderFinished } from '@yoyo/theme';
+import { preloaderFinished } from '@delon/theme';
 
 preloaderFinished();
 

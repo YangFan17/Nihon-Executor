@@ -1,17 +1,21 @@
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
-import { AccountServiceProxy } from '@shared/service-proxies/service-proxies';
-import { AppComponentBase } from '@shared/component-base/app-component-base';
+﻿import { Component, OnInit, Injector, ViewChild } from '@angular/core';
+import { AccountServiceProxy } from '@shared/service-proxies/service-proxies'
+import { AppComponentBase } from '@shared/app-component-base';
 import { TenantChangeModalComponent } from './tenant-change-modal.component';
+
 
 @Component({
     selector: 'tenant-change',
-    templateUrl: './tenant-change.component.html',
+    templateUrl: './tenant-change.component.html'
 })
 export class TenantChangeComponent extends AppComponentBase implements OnInit {
+
     tenancyName: string;
     name: string;
 
-    constructor(injector: Injector) {
+    constructor(
+        injector: Injector
+    ) {
         super(injector);
     }
 
@@ -27,15 +31,10 @@ export class TenantChangeComponent extends AppComponentBase implements OnInit {
     }
 
     showChangeModal(): void {
-        this.modalHelper
-            .open(
-                TenantChangeModalComponent,
-                { tenancyName: this.tenancyName },
-                'md',
-                {
-                    nzMask: true,
-                },
-        )
-            .subscribe(() => { });
+        this.modalHelper.open(TenantChangeModalComponent, { tenancyName: this.tenancyName }, 'md', {
+            nzMask: true,
+        }).subscribe(() => {
+
+        });
     }
 }

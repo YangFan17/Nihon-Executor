@@ -1,0 +1,70 @@
+{
+    "app": {
+        "name": "零售终端云平台",
+        "description": "零售终端云平台"
+    },
+    "user": {
+        "name": "Admin",
+        "avatar": "./assets/img/zorro.svg",
+        "email": "cipchk@qq.com"
+    },
+    "menu": [{
+            "text": "主导航",
+            "translate": "main_navigation",
+            "group": true,
+            "children": [{
+                "text": "工作台",
+                "translate": "home",
+                "link": "/home/index",
+                "icon": "fa fa-home",
+                "reuse": false
+            }]
+        },
+        {
+            "text": "微信平台",
+            "translate": "wechat",
+            "group": true,
+            "children": [{
+                "text": "微信管理",
+                "translate": "weichat-manager",
+                "icon": "fa fa-wechat",
+                "acl": "MarketingCenter",
+                "children": [{
+                        "text": "授权配置",
+                        "link": "/admin/wechat/authsetting",
+                        "translate": "weichat-setting"
+                    },
+                    {
+                        "text": "自动回复",
+                        "link": "/admin/wechat/message",
+                        "translate": "aut-res",
+                        "reuse": false
+                    }
+                ]
+            }]
+        },
+        {
+            "text": "系统",
+            "translate": "system",
+            "group": true,
+            "acl": "Admin",
+            "children": [{
+                "text": "系统管理",
+                "translate": "admin",
+                "link": "/admin",
+                "icon": "fa fa-users",
+                "children": [{
+                        "text": "用户",
+                        "link": "/admin/system/users",
+                        "translate": "users"
+                    },
+                    {
+                        "text": "角色",
+                        "link": "/admin/system/roles",
+                        "translate": "roles"
+                    }
+                ]
+            }]
+        }
+    ]
+}

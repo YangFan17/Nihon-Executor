@@ -21,7 +21,7 @@ export class RolesComponent extends PagedListingComponentBase<RoleDto> {
     super(injector);
   }
 
-  protected fetchDataList(
+  protected fetchData(
     request: PagedRequestDto,
     pageNumber: number,
     finishedCallback: Function,

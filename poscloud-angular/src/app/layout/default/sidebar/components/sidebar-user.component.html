@@ -1,0 +1,18 @@
+<nz-dropdown nzTrigger="click" class="user-block clearfix">
+    <div nz-dropdown class="user-block-dropdown">
+        <nz-avatar class="avatar" [nzIcon]="'user'"></nz-avatar>
+        <div class="info">
+            <strong>{{shownLoginName}}</strong>
+            <p class="text-truncate mb0">{{emailAddress}}</p>
+        </div>
+    </div>
+    <ul nz-menu>
+        <li nz-menu-item (click)="changePassword()">
+            <i class="anticon anticon-user"></i> 修改密码
+        </li>
+        <li nz-menu-item (click)="logout()">
+            <i class="anticon anticon-logout"></i> 退出登录
+        </li>
+    </ul>
+</nz-dropdown>
+<change-password-modal #changePasswordModal (modalSave)="callBack()"></change-password-modal>

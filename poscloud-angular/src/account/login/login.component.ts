@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component,
   Injector,
   ElementRef,
@@ -10,34 +10,31 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { AppComponentBase } from '@shared/component-base/app-component-base';
-import { AbpSessionService } from '@yoyo/abp/session/abp-session.service';
-import {
-  SessionServiceProxy
-} from '@shared/service-proxies/service-proxies';
-import { UrlHelper } from '@shared/helpers/UrlHelper';
+import { FormComponentBase } from '@shared/component-base/form-component-base';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
   animations: [appModuleAnimation()],
 })
-export class LoginComponent extends AppComponentBase implements OnInit {
+export class LoginComponent extends FormComponentBase<any> implements OnInit {
   submitting = false;
 
   constructor(
     injector: Injector,
     private fb: FormBuilder,
     public loginService: LoginService,
-    private _sessionService: AbpSessionService,
-    private _sessionAppService: SessionServiceProxy,
     private _router: Router,
   ) {
     super(injector);
   }
 
   ngOnInit(): void {
-
+    this.validateForm = this.fb.group({
+      userName: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      rememberMe: [true],
+    });
   }
 
   get multiTenancySideIsTeanant(): boolean {
@@ -51,10 +48,19 @@ export class LoginComponent extends AppComponentBase implements OnInit {
     return true;
   }
 
-  login(): void {
-    this.submitting = true;
-    this.loginService.authenticate(() => {
-      this.submitting = false;
-    });
+  protected submitExecute(finisheCallback: Function): void {
+    this.loginService.authenticate(() => (this.submitting = false));
+  }
+  protected setFormValues(entity: any): void {}
+  protected getFormValues(): void {
+    this.loginService.authenticateModel.userNameOrEmailAddress = this.getControlVal(
+      'userName',
+    );
+    this.loginService.authenticateModel.password = this.getControlVal(
+      'password',
+    );
+    this.loginService.authenticateModel.rememberClient = this.getControlVal(
+      'rememberMe',
+    );
   }
 }

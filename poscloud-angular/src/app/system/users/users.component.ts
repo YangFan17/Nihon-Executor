@@ -21,7 +21,7 @@ export class UsersComponent extends PagedListingComponentBase<UserDto> {
     super(injector);
   }
 
-  protected fetchDataList(
+  protected fetchData(
     request: PagedRequestDto,
     pageNumber: number,
     finishedCallback: Function,

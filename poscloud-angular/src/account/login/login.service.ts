@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   ExternalLoginProviderInfoModel,
@@ -14,7 +14,10 @@ import { UrlHelper } from '@shared/helpers/UrlHelper';
 import { AppConsts } from '@shared/AppConsts';
 
 import * as _ from 'lodash';
-import { UtilsService, MessageService, TokenService, LogService } from '@yoyo/abp';
+import { UtilsService } from 'abp-ng2-module/dist/src/utils/utils.service';
+import { MessageService } from 'abp-ng2-module/dist/src/message/message.service';
+import { TokenService } from 'abp-ng2-module/dist/src/auth/token.service';
+import { LogService } from 'abp-ng2-module/dist/src/log/log.service';
 
 @Injectable()
 export class LoginService {
@@ -38,7 +41,7 @@ export class LoginService {
   }
 
   authenticate(finallyCallback?: () => void): void {
-    finallyCallback = finallyCallback || (() => { });
+    finallyCallback = finallyCallback || (() => {});
 
     this._tokenAuthService
       .authenticate(this.authenticateModel)

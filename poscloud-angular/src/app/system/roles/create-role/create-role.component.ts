@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, Input } from '@angular/core';
 import { ListResultDtoOfPermissionDto, CreateRoleDto, RoleServiceProxy } from '@shared/service-proxies/service-proxies';
-import { ModalComponentBase } from '@shared/component-base';
+import { ModalFormComponentBase } from '@shared/component-base/modal-form-component-base';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -8,10 +8,10 @@ import { Validators } from '@angular/forms';
   templateUrl: './create-role.component.html',
   styles: []
 })
-export class CreateRoleComponent extends ModalComponentBase implements OnInit {
+export class CreateRoleComponent extends ModalFormComponentBase<CreateRoleDto> implements OnInit {
 
   permissions: ListResultDtoOfPermissionDto = null;
-  role: CreateRoleDto = new CreateRoleDto();
+  role: CreateRoleDto = null;
   permissionList = [];
 
   constructor(
@@ -23,6 +23,13 @@ export class CreateRoleComponent extends ModalComponentBase implements OnInit {
 
   ngOnInit() {
 
+    this.validateForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      displayName: ['', [Validators.required]],
+      description: [''],
+      permissions: []
+    });
+
     this._roleService.getAllPermissions()
       .subscribe((permissions: ListResultDtoOfPermissionDto) => {
         this.permissions = permissions;
@@ -33,12 +40,12 @@ export class CreateRoleComponent extends ModalComponentBase implements OnInit {
           });
         });
 
+        this.setControlVal('permissions', this.permissionList);
       });
 
   }
 
-  save(): void {
-    this.saving = true;
+  protected submitExecute(finisheCallback: Function): void {
     let tmpPermissions = [];
 
     this.permissionList.forEach((item) => {
@@ -51,12 +58,25 @@ export class CreateRoleComponent extends ModalComponentBase implements OnInit {
 
     this._roleService.create(this.role)
       .finally(() => {
-        this.saving = false;
+        finisheCallback();
       })
       .subscribe(() => {
         this.notify.info(this.l('SavedSuccessfully'));
-        this.success();
+        this.success(true);
       });
   }
+  protected setFormValues(entity: CreateRoleDto): void {
+
+  }
+  protected getFormValues(): void {
+    if (!this.role) {
+      this.role = new CreateRoleDto();
+    }
+    this.role.name = this.getControlVal('name');
+    this.role.displayName = this.getControlVal('displayName');
+    this.role.description = this.getControlVal('description');
+    this.permissionList = this.getControlVal('permissions');
+  }
+
 
 }

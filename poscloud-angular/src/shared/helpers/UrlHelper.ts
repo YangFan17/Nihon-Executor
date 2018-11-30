@@ -1,4 +1,4 @@
-export class UrlHelper {
+﻿export class UrlHelper {
   /**
    * The URL requested, before initial routing.
    */

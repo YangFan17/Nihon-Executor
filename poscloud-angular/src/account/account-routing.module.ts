@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountComponent } from './account.component';
-import {} from '@shared/auth';
+// import {} from '@shared/auth';
 
 @NgModule({
   imports: [
@@ -21,4 +21,4 @@ import {} from '@shared/auth';
   ],
   exports: [RouterModule],
 })
-export class AccountRoutingModule {}
+export class AccountRoutingModule { }

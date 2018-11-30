@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import {
   SessionServiceProxy,
   UserLoginInfoDto,
@@ -6,7 +6,7 @@ import {
   ApplicationInfoDto,
   GetCurrentLoginInformationsOutput,
 } from '@shared/service-proxies/service-proxies';
-import { AbpMultiTenancyService } from '@yoyo/abp';
+import { AbpMultiTenancyService } from 'abp-ng2-module/dist/src/multi-tenancy/abp-multi-tenancy.service';
 
 @Injectable()
 export class AppSessionService {
@@ -17,7 +17,7 @@ export class AppSessionService {
   constructor(
     private _sessionService: SessionServiceProxy,
     private _abpMultiTenancyService: AbpMultiTenancyService,
-  ) { }
+  ) {}
 
   get application(): ApplicationInfoDto {
     return this._application;
@@ -64,7 +64,7 @@ export class AppSessionService {
           err => {
             reject(err);
           },
-      );
+        );
     });
   }
 

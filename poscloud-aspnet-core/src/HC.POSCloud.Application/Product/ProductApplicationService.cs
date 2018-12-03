@@ -29,7 +29,7 @@ namespace HC.POSCloud.Products
     /// <summary>
     /// Product应用层服务的接口实现方法  
     ///</summary>
-    [AbpAuthorize(AppPermissions.Pages)]
+    //[AbpAuthorize(AppPermissions.Pages)]
     public class ProductAppService : POSCloudAppServiceBase, IProductAppService
     {
         private readonly IRepository<Product, Guid> _entityRepository;
@@ -54,24 +54,15 @@ namespace HC.POSCloud.Products
         ///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-		[AbpAuthorize(ProductPermissions.Query)] 
-        public async Task<PagedResultDto<ProductListDto>> GetPaged(GetProductsInput input)
+        public async Task<PagedResultDto<ProductListDto>> GetPagedProductListAsync(GetProductsInput input)
 		{
-
-		    var query = _entityRepository.GetAll();
-			// TODO:根据传入的参数添加过滤条件
-            
-
+		    var query = _entityRepository.GetAll();           
 			var count = await query.CountAsync();
-
 			var entityList = await query
 					.OrderBy(input.Sorting).AsNoTracking()
 					.PageBy(input)
 					.ToListAsync();
-
-			// var entityListDtos = ObjectMapper.Map<List<ProductListDto>>(entityList);
 			var entityListDtos =entityList.MapTo<List<ProductListDto>>();
-
 			return new PagedResultDto<ProductListDto>(count,entityListDtos);
 		}
 
@@ -79,11 +70,9 @@ namespace HC.POSCloud.Products
 		/// <summary>
 		/// 通过指定id获取ProductListDto信息
 		/// </summary>
-		[AbpAuthorize(ProductPermissions.Query)] 
-		public async Task<ProductListDto> GetById(EntityDto<Guid> input)
+		public async Task<ProductListDto> GetProductByIdAsync(Guid id)
 		{
-			var entity = await _entityRepository.GetAsync(input.Id);
-
+			var entity = await _entityRepository.GetAsync(id);
 		    return entity.MapTo<ProductListDto>();
 		}
 

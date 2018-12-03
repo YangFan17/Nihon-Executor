@@ -52,7 +52,7 @@ export class AppComponent extends AppComponentBase
       '商品中心',
       '',
       'anticon anticon-barcode',
-      '/app/home',
+      '/app/product/product',
     ),
     new MenuItem(
       '店铺中心',

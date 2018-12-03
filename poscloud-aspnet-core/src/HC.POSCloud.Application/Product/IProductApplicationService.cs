@@ -33,13 +33,13 @@ namespace HC.POSCloud.Products
 		///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<PagedResultDto<ProductListDto>> GetPaged(GetProductsInput input);
+        Task<PagedResultDto<ProductListDto>> GetPagedProductListAsync(GetProductsInput input);
 
 
 		/// <summary>
 		/// 通过指定id获取ProductListDto信息
 		/// </summary>
-		Task<ProductListDto> GetById(EntityDto<Guid> input);
+		Task<ProductListDto> GetProductByIdAsync(Guid id);
 
 
         /// <summary>

@@ -1,0 +1,53 @@
+<page-header [title]=""></page-header>
+<nz-card>
+    <div nz-row>
+        <div nz-col nzSpan="6">
+        </div>
+        <div nz-col nzSpan="18">
+            <form nz-form (ngSubmit)="refreshData(false,true)" [nzLayout]="'inline'">
+                <div nz-row [nzGutter]="24">
+                    <div nz-col [nzSpan]="16" class="mb-md">
+                        <nz-form-item class="d-flex">
+                            <nz-form-label nzFor="filter">商品名称/条码</nz-form-label>
+                            <nz-form-control class="flex-1">
+                                <input nz-input [(ngModel)]="search.filter" name="filter" placeholder="请输入商品名称或条码" nzSize="default">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                    <div nz-col [nzSpan]="8" class="mb-md" [class.text-right]="'true'">
+                        <button nz-button type="submit" nzType="primary" [nzLoading]="loading">查询</button>
+                        <button nz-button type="reset" (click)="refreshData(true)" class="mx-sm">重置</button>
+                        <button nz-button type="button" (click)="createProduct()" nzType="primary">
+                                <i class="anticon anticon-plus"></i>
+                                <span>新建</span>
+                            </button>
+                    </div>
+                </div>
+            </form>
+            <ng-template #totalTemplate let-total>共 {{query.total}} 条</ng-template>
+            <nz-table #nzTable [nzFrontPagination]="false" [nzTotal]="query.total" [nzShowTotal]="totalTemplate" [nzData]="employeeList" [(nzPageIndex)]="query.pageIndex" [(nzPageSize)]="query.pageSize" [nzLoading]="loading" [nzShowSizeChanger]="true" (nzPageIndexChange)="refreshData()"
+                (nzPageSizeChange)="refreshData()">
+                <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>商品类型</th>
+                        <th>单位</th>
+                        <th>条码</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of nzTable.data">
+                        <!-- <td>{{data.name}}</td>
+                        <td>{{data.position}}</td>
+                        <td>{{data.mobile}}</td>
+                        <td>{{data.department}}</td>
+                        <td>
+                            <a (click)="goDetail(data.id)">查看详情</a>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</nz-card>

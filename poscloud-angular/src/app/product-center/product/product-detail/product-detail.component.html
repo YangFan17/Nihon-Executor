@@ -1,0 +1,87 @@
+<nz-card [nzBordered]="false" nzTitle="{{cardTitle}}">
+    <form nz-form [formGroup]="validateForm" *ngIf="product">
+        <div nz-row>
+            <div nz-col [nzSpan]="16">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4" nzRequired>商品名称</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <input nz-input formControlName="name" [(ngModel)]="product.name" id="name">
+                        <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('required')">请输入商品名称</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row style="margin-bottom: 0px;">
+                    <nz-form-label nz-col [nzSm]="4" nzRequired nzFor="productType">商品类型</nz-form-label>
+                    <nz-form-control nz-col [nzSm]="20">
+                        <nz-radio-group formControlName="productType" [(ngModel)]="product.productTagId" class="mb-md">
+                            <label nz-radio [nzValue]="o.value" *ngFor="let o of productTypes">
+                                <span>{{o.text}}</span>
+                            </label>
+                        </nz-radio-group>
+                        <nz-form-explain *ngIf="validateForm.get('productType').dirty&&validateForm.get('productType').hasError('required')">请选择商品类型</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4">进货价</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <input nz-input formControlName="purchasePrice" [(ngModel)]="product.purchasePrice" id="purchasePrice">
+                        <nz-form-explain *ngIf="validateForm.get('purchasePrice').dirty&&validateForm.get('purchasePrice').hasError('pattern')">请输入正确的价格</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('purchasePrice').dirty&&validateForm.get('purchasePrice').hasError('maxlength')">字符长度小于等于18</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4">建议零售价</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <input nz-input formControlName="retailPrice" [(ngModel)]="product.retailPrice" id="retailPrice">
+                        <nz-form-explain *ngIf="validateForm.get('retailPrice').dirty&&validateForm.get('retailPrice').hasError('pattern')">请输入正确的价格</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('retailPrice').dirty&&validateForm.get('retailPrice').hasError('maxlength')">字符长度小于等于18</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4">单位</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <input nz-input formControlName="unit" [(ngModel)]="product.unit" id="unit">
+                        <nz-form-explain *ngIf="validateForm.get('unit').dirty&&validateForm.get('unit').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4">条码</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <input nz-input formControlName="barCode" [(ngModel)]="product.barCode" id="barCode">
+                        <nz-form-explain *ngIf="validateForm.get('barCode').dirty&&validateForm.get('barCode').hasError('pattern')">请输入正确的条码</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('barCode').dirty&&validateForm.get('barCode').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4" nzFor="desc">商品描述</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <textarea nz-input row="3" formControlName="desc" id="desc" [(ngModel)]="product.desc"></textarea>
+                        <nz-form-explain *ngIf="validateForm.get('desc').dirty&&validateForm.get('desc').hasError('maxlength')">字符长度小于等于500</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4" nzFor="photoUrl">商品图片</nz-form-label>
+                    <nz-form-control nz-col [nzSm]="20">
+                        <nz-upload class="avatar-uploader" nzAction="{{actionUrl}}" nzName="image" nzListType="picture-card" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+                            <ng-container *ngIf="!product.showPhoto">
+                                <i class="anticon anticon-plus"></i>
+                            </ng-container>
+                            <img *ngIf="product.showPhoto" [src]="product.showPhoto" class="avatar imgSize">
+                        </nz-upload>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+    <footer-toolbar errorCollect>
+        <button nz-button [nzType]="'default'" (click)="return()">
+            {{l("返回")}}
+        </button>
+        <button nz-button *ngIf="isDelete" [nzType]="'danger'" (click)="delete(deleteContent)" [nzLoading]="isConfirmLoading">
+            {{l("删除")}}
+        </button>
+        <button nz-button [nzType]="'primary'" type="button" (click)="save()" [nzLoading]="isConfirmLoading" [disabled]="!validateForm.valid">
+            {{l("保存")}}
+        </button>
+    </footer-toolbar>
+</nz-card>

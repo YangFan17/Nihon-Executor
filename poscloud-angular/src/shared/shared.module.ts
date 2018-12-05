@@ -28,7 +28,7 @@ const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
     AbpModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
 
     AlainThemeModule.forChild(),
     DelonABCModule,

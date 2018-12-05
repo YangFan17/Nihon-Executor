@@ -21,27 +21,5 @@ export class ProductTagComponent extends AppComponentBase implements OnInit {
     }
 
     ngOnInit(): void {
-        this.refreshData();
-    }
-
-    refreshData(reset = false, search?: boolean) {
-        if (reset) {
-            this.query.pageIndex = 1;
-            this.search = {};
-        }
-        if (search) {
-            this.query.pageIndex = 1;
-        }
-        this.loading = true;
-        let params: any = {};
-        params.SkipCount = this.query.skipCount();
-        params.MaxResultCount = this.query.pageSize;
-        // this.employeeService.getAll(params).subscribe((result: PagedResultDtoOfEmployee) => {
-        //     this.loading = false;
-        //     this.employeeList = result.items;
-        //     this.query.total = result.totalCount;
-        //     console.log(result);
-
-        // })
     }
 }

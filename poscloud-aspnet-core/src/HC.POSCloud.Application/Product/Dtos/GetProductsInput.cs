@@ -9,6 +9,14 @@ namespace HC.POSCloud.Products.Dtos
     {
 
         /// <summary>
+        /// 树节点
+        /// </summary>
+        public string NodeKey { get; set; }
+        public string Name { get; set; }
+        public string BarCode { get; set; }
+
+        public string Filter { get; set; }
+        /// <summary>
         /// 正常化排序使用
         /// </summary>
         public void Normalize()

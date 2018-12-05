@@ -55,7 +55,7 @@ namespace HC.POSCloud.Products
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task CreateOrUpdate(CreateOrUpdateProductInput input);
+        Task<ProductEditDto> CreateOrUpdateProductAsync(ProductEditDto input);
 
 
         /// <summary>

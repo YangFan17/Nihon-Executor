@@ -1,0 +1,30 @@
+<nz-modal [(nzVisible)]="isVisible" nzMaskClosable="false" nzTitle="修改分类" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" style="width: 520px;" [nzFooter]="modalFooter">
+    <ng-template #modalContent>
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item nz-row>
+                <nz-form-label nz-col nzRequired [nzSm]="4">名称</nz-form-label>
+                <nz-form-control [nzSm]="20" nzHasFeedback>
+                    <input nz-input formControlName="name" [(ngModel)]="productTag.name" [placeholder]="'分类名称'">
+                    <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('required')">分类名不能为空</nz-form-explain>
+                    <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('maxlength')">字符长度小于等于200</nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item nz-row>
+                <nz-form-label nz-col [nzSm]="4" nzRequired>排序</nz-form-label>
+                <nz-form-control [nzSm]="20" nzHasFeedback>
+                    <input nz-input formControlName="seq" [(ngModel)]="productTag.seq" [placeholder]="'排序'">
+                    <nz-form-explain *ngIf="validateForm.get('seq').dirty&&validateForm.get('seq').hasError('required')">排序不能为空</nz-form-explain>
+                    <nz-form-explain *ngIf="validateForm.get('seq').dirty&&validateForm.get('seq').hasError('pattern')">请输入正整数</nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-template>
+    <ng-template #modalFooter>
+        <button nz-button [nzType]="'default'" type="button" (click)="handleCancel($event)">
+            取消
+        </button>
+        <button nz-button [nzType]="'primary'" type="button" (click)="save(productTag)" [nzLoading]="loading" [disabled]="!validateForm.valid">
+            保存
+        </button>
+    </ng-template>
+</nz-modal>

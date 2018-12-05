@@ -10,15 +10,24 @@
                         <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('required')">请输入商品名称</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
-                <nz-form-item nz-row style="margin-bottom: 0px;">
+                <nz-form-item nz-row>
                     <nz-form-label nz-col [nzSm]="4" nzRequired nzFor="productType">商品类型</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <nz-select formControlName="productType" [nzPlaceHolder]="'请选择商品类型'" name="productType" [(ngModel)]="product.productTagId" (ngModelChange)="typeChange()" [nzShowSearch]="true">
+                            <nz-option *ngFor="let i of productTypes" [nzLabel]="i.text" [nzValue]="i.value">
+                            </nz-option>
+                        </nz-select>
+                        <nz-form-explain *ngIf="validateForm.get('productType').dirty&&validateForm.get('productType').hasError('required')">请选择商品类型</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item *ngIf="product.productTagId == 1" nz-row style="margin-bottom: 0px;">
+                    <nz-form-label nz-col [nzSm]="4" nzRequired nzFor="grade">卷烟等级</nz-form-label>
                     <nz-form-control nz-col [nzSm]="20">
-                        <nz-radio-group formControlName="productType" [(ngModel)]="product.productTagId" class="mb-md">
-                            <label nz-radio [nzValue]="o.value" *ngFor="let o of productTypes">
+                        <nz-radio-group formControlName="grade" [(ngModel)]="product.grade" class="mb-md">
+                            <label nz-radio [nzValue]="o.value" *ngFor="let o of gradeTypes">
                                 <span>{{o.text}}</span>
                             </label>
                         </nz-radio-group>
-                        <nz-form-explain *ngIf="validateForm.get('productType').dirty&&validateForm.get('productType').hasError('required')">请选择商品类型</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item nz-row>
@@ -57,6 +66,15 @@
                     <nz-form-control [nzSm]="20" nzHasFeedback>
                         <textarea nz-input row="3" formControlName="desc" id="desc" [(ngModel)]="product.desc"></textarea>
                         <nz-form-explain *ngIf="validateForm.get('desc').dirty&&validateForm.get('desc').hasError('maxlength')">字符长度小于等于500</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4" nzFor="isEnable">是否启用</nz-form-label>
+                    <nz-form-control [nzSm]="20">
+                        <nz-select formControlName="isEnable" name="isEnable" [(ngModel)]="product.isEnable">
+                            <nz-option *ngFor="let i of isEnableTypes" [nzLabel]="i.text" [nzValue]="i.value">
+                            </nz-option>
+                        </nz-select>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item nz-row>

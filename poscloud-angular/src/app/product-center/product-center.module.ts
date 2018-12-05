@@ -10,6 +10,8 @@ import { LocalizationService } from 'abp-ng2-module/dist/src/localization/locali
 import { ProductTagComponent } from './product-tag/product-tag.component';
 import { BasicRoutingModule } from './product-center-routing.module';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { CreateTagComponent } from './product-tag/create-tag/create-tag.component';
+import { EditTagComponent } from './product-tag/edit-tag/edit-tag.component';
 
 // This Module's Components
 
@@ -25,7 +27,9 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
     declarations: [
         ProductComponent,
         ProductTagComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        EditTagComponent,
+        CreateTagComponent
     ],
     entryComponents: [
     ],

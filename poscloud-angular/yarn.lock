@@ -185,6 +185,13 @@
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@angularclass/hmr/-/hmr-2.1.3.tgz#34e658ed3da37f23b0a200e2da5a89be92bb209f"
 
+"@ant-design/icons-angular@^1.0.1":
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/@ant-design/icons-angular/download/@ant-design/icons-angular-1.0.1.tgz#6eeddbc864deac378c36d882d566d8cce840ad2b"
+  dependencies:
+    ant-design-palettes "^1.1.3"
+    tslib "^1.9.0"
+
 "@antv/adjust@~0.0.2":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@antv/adjust/-/adjust-0.0.3.tgz#61bfd468ac697cddca373fc03c256ad4bb875154"
@@ -281,40 +288,40 @@
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@antv/util/-/util-1.0.8.tgz#96755c0bd18856eecdc44b072c2b080f4b798094"
 
-"@delon/abc@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/abc/-/abc-1.1.3.tgz#9fad0123d01783ddf66b92216d39eb0d1aec8f53"
+"@delon/abc@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/abc/download/@delon/abc-1.5.2.tgz#3aa21797c866c5674a76acc737f1437cea74b43e"
   dependencies:
     file-saver "^1.3.3"
     ngx-countdown "^3.0.0"
 
-"@delon/acl@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/acl/-/acl-1.1.3.tgz#3a7f8a810edbb8db1db92ca164ccc40e822dfc72"
+"@delon/acl@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/acl/download/@delon/acl-1.5.2.tgz#08645ad9a13cb011038d37cd431153febce3b961"
 
-"@delon/auth@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/auth/-/auth-1.1.3.tgz#4440140feff1ad48ad62610fbc4bdbc827dd4989"
+"@delon/auth@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/auth/download/@delon/auth-1.5.2.tgz#7ee313579e9d3283556d0313a2fcd08630223a95"
 
-"@delon/cache@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/cache/-/cache-1.1.3.tgz#bcde1534b235f5d88619c510865b8fa89283dd3b"
+"@delon/cache@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/cache/download/@delon/cache-1.5.2.tgz#c6d744d53e5b760542eb586db3e8aa60ccc618f3"
 
-"@delon/form@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/form/-/form-1.1.3.tgz#79341874c4bafe24be1af3d41a35d942edb01994"
+"@delon/form@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/form/download/@delon/form-1.5.2.tgz#b446620217503d0c403f9e69ab71a8aa72d3934c"
 
-"@delon/mock@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/mock/-/mock-1.1.3.tgz#57df71e3700aa567a05c8bbb2c0e67e20f23c5db"
+"@delon/mock@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/mock/download/@delon/mock-1.5.2.tgz#d126345474d9ac4d85c71a80cc6c98372974d152"
 
-"@delon/theme@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/theme/-/theme-1.1.3.tgz#5c6e2c6cfd7d37de99216d1fe6ad556f920f2f84"
+"@delon/theme@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/theme/download/@delon/theme-1.5.2.tgz#5ea7c77da77fdfd2638d04f76eba7531c786ec86"
 
-"@delon/util@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@delon/util/-/util-1.1.3.tgz#93159fce38aae5fb7f2bb81712f51583b236762a"
+"@delon/util@^1.3.2":
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/@delon/util/download/@delon/util-1.5.2.tgz#3231f5f629bb58af3b2f258fe9b75a57016870c5"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -330,18 +337,6 @@
     "@angular-devkit/core" "0.6.8"
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
-
-"@ngx-translate/core@^10.0.2":
-  version "10.0.2"
-  resolved "http://registry.npm.taobao.org/@ngx-translate/core/download/@ngx-translate/core-10.0.2.tgz#5eeb78f47845b476a1e892fb2fb153dbbaf72850"
-  dependencies:
-    tslib "^1.9.0"
-
-"@ngx-translate/http-loader@^3.0.1":
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/@ngx-translate/http-loader/download/@ngx-translate/http-loader-3.0.1.tgz#20b0f98bc6c25321129d3e3302ab3cc489c0a42a"
-  dependencies:
-    tslib "^1.9.0"
 
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.0"
@@ -565,13 +560,13 @@ abbrev@1.0.x:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
 
-abp-ng2-module@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/abp-ng2-module/-/abp-ng2-module-3.1.0.tgz#9c82ca816d7d02fe0fb1ef474fcd27dbacd41fd9"
+abp-ng2-module@^3.2.1:
+  version "3.2.3"
+  resolved "http://registry.npm.taobao.org/abp-ng2-module/download/abp-ng2-module-3.2.3.tgz#476b2cbfe7a68cbe01970615e4eeb588ced11ed5"
 
-abp-web-resources@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/abp-web-resources/-/abp-web-resources-3.7.0.tgz#eaf35870765421c6fd989b008e2d0eb855d3d266"
+abp-web-resources@^3.8.2:
+  version "3.8.4"
+  resolved "http://registry.npm.taobao.org/abp-web-resources/download/abp-web-resources-3.8.4.tgz#72b2590ff6524c7ca738046da045cde8f498a0cf"
 
 abs-svg-path@~0.1.1:
   version "0.1.1"
@@ -700,6 +695,12 @@ ansi-styles@^3.1.0, ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
   dependencies:
     color-convert "^1.9.0"
+
+ant-design-palettes@^1.1.3:
+  version "1.1.3"
+  resolved "http://registry.npm.taobao.org/ant-design-palettes/download/ant-design-palettes-1.1.3.tgz#84119b1a4d86363adc52a38d587e65336a0a27dd"
+  dependencies:
+    tinycolor2 "^1.4.1"
 
 any-observable@^0.3.0:
   version "0.3.0"
@@ -5154,16 +5155,18 @@ next-tick@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-ng-alain@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/ng-alain/-/ng-alain-1.1.3.tgz#b50fc2f91a5119b090ba45f9c180862c42f04f62"
+ng-alain@^1.3.2:
+  version "1.5.2"
+  resolved "http://registry.npm.taobao.org/ng-alain/download/ng-alain-1.5.2.tgz#521329c8c6b6ca8b54a713ba4c37e3500ec7cd70"
 
-ng-zorro-antd@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-1.1.1.tgz#d0653fbce09808c27c4294d299b8c67d04250c17"
+ng-zorro-antd@^1.4.0:
+  version "1.8.1"
+  resolved "http://registry.npm.taobao.org/ng-zorro-antd/download/ng-zorro-antd-1.8.1.tgz#8a7fb34385e77cae40d102927e4f789d1aebe0d5"
   dependencies:
     "@angular/cdk" "^6.0.0"
+    "@ant-design/icons-angular" "^1.0.1"
     date-fns "^1.29.0"
+    tslib "^1.9.0"
 
 ngx-countdown@^3.0.0:
   version "3.0.1"
@@ -6175,6 +6178,10 @@ q@^1.4.1:
 qjobs@^1.1.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/qjobs/-/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
+
+qrious@^4.0.2:
+  version "4.0.2"
+  resolved "http://registry.npm.taobao.org/qrious/download/qrious-4.0.2.tgz#09c4d4079d2b961617f62c69cff3b9bb66a39693"
 
 qs@6.5.1:
   version "6.5.1"
@@ -7716,6 +7723,10 @@ timers-browserify@^2.0.4:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.10.tgz#1d28e3d2aadf1d5a5996c4e9f95601cd053480ae"
   dependencies:
     setimmediate "^1.0.4"
+
+tinycolor2@^1.4.1:
+  version "1.4.1"
+  resolved "http://registry.npm.taobao.org/tinycolor2/download/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
 
 tmp@0.0.24:
   version "0.0.24"

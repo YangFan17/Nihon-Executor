@@ -1,14 +1,7 @@
-export class Product implements IProduct {
-    id: string;
+export class ProductTag implements IProductTag {
+    id: number;
     name: string;
-    photoUrl: string;
-    productTagId: number;
-    retailPrice: number;
-    purchasePrice: number;
-    unit: string;
-    barCode: string;
-    desc: string;
-    showPhoto: string;
+    seq: number;
 
     isDeleted: boolean;
     creationTime: Date;
@@ -17,7 +10,7 @@ export class Product implements IProduct {
     lastModifierUserId: number;
     deletionTime: Date;
     deleterUserId: number;
-    constructor(data?: IProduct) {
+    constructor(data?: IProductTag) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -30,13 +23,7 @@ export class Product implements IProduct {
         if (data) {
             this.id = data["id"];
             this.name = data["name"];
-            this.photoUrl = data["photoUrl"];
-            this.productTagId = data["productTagId"];
-            this.retailPrice = data["retailPrice"];
-            this.purchasePrice = data["purchasePrice"];
-            this.unit = data["unit"];
-            this.barCode = data["barCode"];
-            this.desc = data["desc"];
+            this.seq = data["seq"];
             this.isDeleted = data["isDeleted"];
             this.creationTime = data["creationTime"];
             this.creatorUserId = data["creatorUserId"];
@@ -47,16 +34,16 @@ export class Product implements IProduct {
         }
     }
 
-    static fromJS(data: any): Product {
-        let result = new Product();
+    static fromJS(data: any): ProductTag {
+        let result = new ProductTag();
         result.init(data);
         return result;
     }
 
-    static fromJSArray(dataArray: any[]): Product[] {
+    static fromJSArray(dataArray: any[]): ProductTag[] {
         let array = [];
         dataArray.forEach(result => {
-            let item = new Product();
+            let item = new ProductTag();
             item.init(result);
             array.push(item);
         });
@@ -68,13 +55,7 @@ export class Product implements IProduct {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        data["photoUrl"] = this.photoUrl;
-        data["productTagId"] = this.productTagId;
-        data["retailPrice"] = this.retailPrice;
-        data["purchasePrice"] = this.purchasePrice;
-        data["unit"] = this.unit;
-        data["barCode"] = this.barCode;
-        data["desc"] = this.desc;
+        data["seq"] = this.seq;
         data["isDeleted"] = this.isDeleted;
         data["creationTime"] = this.creationTime;
         data["creatorUserId"] = this.creatorUserId;
@@ -87,22 +68,15 @@ export class Product implements IProduct {
 
     clone() {
         const json = this.toJSON();
-        let result = new Product();
+        let result = new ProductTag();
         result.init(json);
         return result;
     }
 }
-export interface IProduct {
-    id: string;
+export interface IProductTag {
+    id: number;
     name: string;
-    photoUrl: string;
-    productTagId: number;
-    retailPrice: number;
-    purchasePrice: number;
-    unit: string;
-    barCode: string;
-    desc: string;
-    showPhoto: string;
+    seq: number;
 
     isDeleted: boolean;
     creationTime: Date;

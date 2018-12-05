@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
 import { NzModalService, NzModalRef, UploadFile } from 'ng-zorro-antd';
-import { Product } from '@shared/entity/product-center';
+import { Product, SelectGroup } from '@shared/entity/product-center';
 import { ProductServiceProxy } from '@shared/service-proxies/product-center/product-service';
 import { AppComponentBase } from '@shared/app-component-base';
 
@@ -20,10 +20,15 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
     product: Product = new Product();
     host = AppConsts.remoteServiceBaseUrl;
     actionUrl = this.host + '/PosCloud/ProductPhotoPost?fileName=product';
-    productTypes: any[] = [{ text: '烟', value: 1 }, { text: '酒', value: 2 }];
+    gradeTypes: any = [
+        { text: '一类烟', value: 1 }, { text: '二类烟', value: 2 }, { text: '三类烟', value: 3 }
+        , { text: '四类烟', value: 4 }, { text: '五类烟', value: 5 }
+    ];
+    isEnableTypes: any[] = [{ text: '启用', value: 1 }, { text: '禁用', value: 0 }];
     confirmModal: NzModalRef;
     isConfirmLoading = false;
     isDelete = false;
+    productTypes: SelectGroup[] = [];
 
     constructor(injector: Injector
         , private fb: FormBuilder
@@ -43,9 +48,18 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
             barCode: [null, [Validators.compose([Validators.pattern(/^\+?[1-9][0-9]*$/), Validators.maxLength(50)])]],
             purchasePrice: [null, Validators.compose([Validators.pattern(/^(?:[1-9]\d*|0)(?:\.\d{1,2})?$/), Validators.maxLength(18)])],
             retailPrice: [null, Validators.compose([Validators.pattern(/^(?:[1-9]\d*|0)(?:\.\d{1,2})?$/), Validators.maxLength(18)])],
-            desc: [null, Validators.compose([Validators.maxLength(500)])]
+            desc: [null, Validators.compose([Validators.maxLength(500)])],
+            isEnable: [null, Validators.compose([Validators.required])],
+            grade: null
         });
-        // this.getProduct();
+        this.getProductTypes();
+    }
+
+    getProductTypes() {
+        this.productService.getProductTagsSelectGroup().subscribe((result: SelectGroup[]) => {
+            this.productTypes = result;
+            this.getProduct();
+        });
     }
 
     getProduct() {
@@ -59,7 +73,15 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
         } else {
             //新增
             this.cardTitle = '新增商品';
-            this.product.productTagId = 1;
+            this.product.isEnable = 1;
+            this.product.grade = 1;
+        }
+    }
+
+    typeChange() {
+        var tempTagId = this.product.productTagId;//通过临时变量判断是否改变
+        if (this.product.productTagId == 1 && this.product.grade != null) {
+            this.product.grade = 1;
         }
     }
 
@@ -83,9 +105,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
         if (info.file.status === 'done') {
             this.getBase64(info.file.originFileObj, (img: any) => {
                 this.product.showPhoto = img;
-                console.log(img);
             });
-
             this.product.photoUrl = info.file.response.result.imageName;
             this.notify.success('上传图片完成');
         }
@@ -105,6 +125,9 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
             this.isConfirmLoading = true;
             if (typeof (this.product.photoUrl) == 'undefined') {
                 this.product.photoUrl = '/default/defaultProduct.png';
+            }
+            if (this.product.productTagId != 1) {
+                this.product.grade = null;
             }
             this.productService.updateProductInfo(this.product).finally(() => { this.isConfirmLoading = false; })
                 .subscribe((result: Product) => {

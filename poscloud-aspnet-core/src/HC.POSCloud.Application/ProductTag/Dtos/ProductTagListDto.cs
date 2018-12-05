@@ -5,6 +5,7 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Entities.Auditing;
 using System.ComponentModel.DataAnnotations;
 using HC.POSCloud.ProductTags;
+using System.Collections.Generic;
 
 namespace HC.POSCloud.ProductTags.Dtos
 {
@@ -25,60 +26,19 @@ namespace HC.POSCloud.ProductTags.Dtos
 		/// </summary>
 		[Required(ErrorMessage="Seq不能为空")]
 		public int Seq { get; set; }
+    }
 
+    public class NzTreeNode
+    {
+        public virtual string title { get; set; }
+        public virtual string key { get; set; }
+        public virtual bool IsLeaf { get; set; }
+        public virtual bool Expanded { get; set; }    
+        public virtual List<NzTreeNode> children { get; set; }
+    }
 
-
-		/// <summary>
-		/// IsDeleted
-		/// </summary>
-		[Required(ErrorMessage="IsDeleted不能为空")]
-		public bool IsDeleted { get; set; }
-
-
-
-		/// <summary>
-		/// CreationTime
-		/// </summary>
-		[Required(ErrorMessage="CreationTime不能为空")]
-		public DateTime CreationTime { get; set; }
-
-
-
-		/// <summary>
-		/// CreatorUserId
-		/// </summary>
-		public long? CreatorUserId { get; set; }
-
-
-
-		/// <summary>
-		/// LastModificationTime
-		/// </summary>
-		public DateTime? LastModificationTime { get; set; }
-
-
-
-		/// <summary>
-		/// LastModifierUserId
-		/// </summary>
-		public long? LastModifierUserId { get; set; }
-
-
-
-		/// <summary>
-		/// DeletionTime
-		/// </summary>
-		public DateTime? DeletionTime { get; set; }
-
-
-
-		/// <summary>
-		/// DeleterUserId
-		/// </summary>
-		public long? DeleterUserId { get; set; }
-
-
-
-
+    public class TagsNzTreeNode : NzTreeNode
+    {
+        public new List<NzTreeNode> children { get; set; }
     }
 }

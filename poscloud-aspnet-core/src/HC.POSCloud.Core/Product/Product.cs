@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
+using HC.POSCloud.PosEnmus;
 
 namespace HC.POSCloud.Products
 {
@@ -58,5 +59,28 @@ namespace HC.POSCloud.Products
         /// </summary>
         [StringLength(500)]
         public virtual string Desc { get; set; }
+
+        /// <summary>
+        /// 拼音码
+        /// </summary>
+        [StringLength(200)]
+        public virtual string PinYinCode { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        [Required]
+        public virtual EnableEnum IsEnable { get; set; }
+
+        /// <summary>
+        /// 商品标签
+        /// </summary>
+        [StringLength(200)]
+        public virtual string Lable { get; set; }
+
+        /// <summary>
+        /// 卷烟等级
+        /// </summary>
+        public virtual CigaretteGradeEnum? Grade { get; set; }
     }
 }

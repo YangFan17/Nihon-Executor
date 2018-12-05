@@ -141,7 +141,6 @@ export class AppComponent extends AppComponentBase
     injector: Injector,
     private settings: SettingsService,
     private router: Router,
-    private titleSrv: TitleService,
     private menuService: MenuService,
   ) {
     super(injector);
@@ -191,6 +190,7 @@ export class AppComponent extends AppComponentBase
         link: item.route,
         icon: `${item.icon}`,
         hide: item.hide,
+        reuse: false
       };
       if (item.permission !== '' && !this.isGranted(item.permission)) {
         subMenu.hide = true;

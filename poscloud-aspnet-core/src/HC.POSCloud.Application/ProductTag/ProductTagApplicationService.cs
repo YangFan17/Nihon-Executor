@@ -29,7 +29,7 @@ namespace HC.POSCloud.ProductTags
     /// <summary>
     /// ProductTag应用层服务的接口实现方法  
     ///</summary>
-    [AbpAuthorize(AppPermissions.Pages)]
+    //[AbpAuthorize(AppPermissions.Pages)]
     public class ProductTagAppService : POSCloudAppServiceBase, IProductTagAppService
     {
         private readonly IRepository<ProductTag, int> _entityRepository;
@@ -79,11 +79,9 @@ namespace HC.POSCloud.ProductTags
 		/// <summary>
 		/// 通过指定id获取ProductTagListDto信息
 		/// </summary>
-		[AbpAuthorize(ProductTagPermissions.Query)] 
-		public async Task<ProductTagListDto> GetById(EntityDto<int> input)
+		public async Task<ProductTagListDto> GetProductTagByIdAsync(int id)
 		{
-			var entity = await _entityRepository.GetAsync(input.Id);
-
+			var entity = await _entityRepository.GetAsync(id);
 		    return entity.MapTo<ProductTagListDto>();
 		}
 
@@ -96,8 +94,8 @@ namespace HC.POSCloud.ProductTags
 		public async Task<GetProductTagForEditOutput> GetForEdit(NullableIdDto<int> input)
 		{
 			var output = new GetProductTagForEditOutput();
-ProductTagEditDto editDto;
-
+            ProductTagEditDto editDto;
+            
 			if (input.Id.HasValue)
 			{
 				var entity = await _entityRepository.GetAsync(input.Id.Value);
@@ -117,29 +115,8 @@ ProductTagEditDto editDto;
 
 
 		/// <summary>
-		/// 添加或者修改ProductTag的公共方法
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		[AbpAuthorize(ProductTagPermissions.Create,ProductTagPermissions.Edit)]
-		public async Task CreateOrUpdate(CreateOrUpdateProductTagInput input)
-		{
-
-			if (input.ProductTag.Id.HasValue)
-			{
-				await Update(input.ProductTag);
-			}
-			else
-			{
-				await Create(input.ProductTag);
-			}
-		}
-
-
-		/// <summary>
 		/// 新增ProductTag
 		/// </summary>
-		[AbpAuthorize(ProductTagPermissions.Create)]
 		protected virtual async Task<ProductTagEditDto> Create(ProductTagEditDto input)
 		{
 			//TODO:新增前的逻辑判断，是否允许新增
@@ -194,18 +171,77 @@ ProductTagEditDto editDto;
 		}
 
 
-		/// <summary>
-		/// 导出ProductTag为excel表,等待开发。
-		/// </summary>
-		/// <returns></returns>
-		//public async Task<FileDto> GetToExcel()
-		//{
-		//	var users = await UserManager.Users.ToListAsync();
-		//	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
-		//	await FillRoleNames(userListDtos);
-		//	return _userListExcelExporter.ExportToFile(userListDtos);
-		//}
+        /// <summary>
+        /// 获取商品类型
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<TagsNzTreeNode>> GetTagTreesAsync()
+        {
+            var Tags = await _entityRepository.GetAll().OrderBy(v => v.Seq).AsNoTracking()
+             .Select(v => new ProductTagListDto() { Id = v.Id, Name = v.Name }).ToListAsync();
+            List<TagsNzTreeNode> list = new List<TagsNzTreeNode>();
+            TagsNzTreeNode treeNodeRoot = new TagsNzTreeNode();
+            treeNodeRoot.title = "全部";
+            treeNodeRoot.key = "root";
+            treeNodeRoot.Expanded = true;
+            treeNodeRoot.children = new List<NzTreeNode>();
+            if (Tags.Count > 0)
+            {
+                foreach (var item in Tags)
+                {
+                    NzTreeNode treeNode = new NzTreeNode()
+                    {
+                        key = item.Id.ToString(),
+                        title = item.Name.ToString(),
+                        IsLeaf = true,
+                    };
+                    treeNodeRoot.children.Add(treeNode);
+                }
+            }
+            list.Add(treeNodeRoot);
+            return list;
+        }
 
+        /// <summary>
+        /// 创建商品分类
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<ProductTagEditDto> CreateProductTagAsync(ProductTagEditDto input)
+        {
+            var entity = input.MapTo<ProductTag>();
+            entity = await _entityRepository.InsertAsync(entity);
+            return entity.MapTo<ProductTagEditDto>();
+        }
+
+        /// <summary>
+        /// 修改商品分类
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<ProductTagEditDto> EditProductTagAsync(ProductTagEditDto input)
+        {
+            var entity = await _entityRepository.GetAsync(input.Id.Value);
+            input.MapTo(entity);
+            await _entityRepository.UpdateAsync(entity);
+            return entity.MapTo<ProductTagEditDto>();
+        }
+
+        /// <summary>
+        /// 获取商品类型Select
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<SelectGroup>> GetProductTagsSelectGroup()
+        {
+            var entity = await (from pt in _entityRepository.GetAll()
+                                select new
+                                {
+                                    text = pt.Name,
+                                    value = pt.Id,
+                                    seq = pt.Seq
+                                }).OrderBy(v => v.seq).AsNoTracking().ToListAsync();
+            return entity.MapTo<List<SelectGroup>>();
+        }
     }
 }
 

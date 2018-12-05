@@ -39,7 +39,7 @@ namespace HC.POSCloud.ProductTags
 		/// <summary>
 		/// 通过指定id获取ProductTagListDto信息
 		/// </summary>
-		Task<ProductTagListDto> GetById(EntityDto<int> input);
+		Task<ProductTagListDto> GetProductTagByIdAsync(int id);
 
 
         /// <summary>
@@ -48,14 +48,6 @@ namespace HC.POSCloud.ProductTags
         /// <param name="input"></param>
         /// <returns></returns>
         Task<GetProductTagForEditOutput> GetForEdit(NullableIdDto<int> input);
-
-
-        /// <summary>
-        /// 添加或者修改ProductTag的公共方法
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        Task CreateOrUpdate(CreateOrUpdateProductTagInput input);
 
 
         /// <summary>
@@ -71,12 +63,9 @@ namespace HC.POSCloud.ProductTags
         /// </summary>
         Task BatchDelete(List<int> input);
 
-
-		/// <summary>
-        /// 导出ProductTag为excel表
-        /// </summary>
-        /// <returns></returns>
-		//Task<FileDto> GetToExcel();
-
+        Task<List<TagsNzTreeNode>> GetTagTreesAsync();
+        Task<ProductTagEditDto> CreateProductTagAsync(ProductTagEditDto input);
+        Task<ProductTagEditDto> EditProductTagAsync(ProductTagEditDto input);
+        Task<List<SelectGroup>> GetProductTagsSelectGroup();
     }
 }

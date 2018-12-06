@@ -63,20 +63,12 @@ namespace HC.POSCloud.Products
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task Delete(EntityDto<Guid> input);
+        Task DeleteProductByIdAsync(Guid id);
 
 
         /// <summary>
         /// 批量删除Product
         /// </summary>
         Task BatchDelete(List<Guid> input);
-
-
-		/// <summary>
-        /// 导出Product为excel表
-        /// </summary>
-        /// <returns></returns>
-		//Task<FileDto> GetToExcel();
-
     }
 }

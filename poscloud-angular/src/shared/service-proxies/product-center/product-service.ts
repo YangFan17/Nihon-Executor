@@ -98,10 +98,10 @@ export class ProductServiceProxy {
     }
 
     deleteProduct(id: string): Observable<any> {
-        let url_ = "/api/services/app/Product/ProductDeleteByIdAsync";
+        let url_ = "/api/services/app/Product/DeleteProductByIdAsync";
         var param = { id: id };
         return this._poshttp.delete(url_, param).map(data => {
-            return data.result;
+            return data;
         });
     }
 

@@ -29,7 +29,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
     isConfirmLoading = false;
     isDelete = false;
     productTypes: SelectGroup[] = [];
-
+    tempGrade?: number;
     constructor(injector: Injector
         , private fb: FormBuilder
         , private actRouter: ActivatedRoute
@@ -69,6 +69,11 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
             params.id = this.id;
             this.productService.getProductByIdAsync(params).subscribe((result: Product) => {
                 this.product = result;
+                this.tempGrade = result.grade;
+                if (result.photoUrl) {
+                    this.product.showPhoto = this.host + this.product.photoUrl;
+                }
+                this.isDelete = true;
             });
         } else {
             //新增
@@ -79,8 +84,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
     }
 
     typeChange() {
-        var tempTagId = this.product.productTagId;//通过临时变量判断是否改变
-        if (this.product.productTagId == 1 && this.product.grade != null) {
+        if (this.product.productTagId == 1 && this.tempGrade == null) {
             this.product.grade = 1;
         }
     }
@@ -123,9 +127,9 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
         }
         if (this.validateForm.valid) {
             this.isConfirmLoading = true;
-            if (typeof (this.product.photoUrl) == 'undefined') {
-                this.product.photoUrl = '/default/defaultProduct.png';
-            }
+            // if (typeof (this.product.photoUrl) == 'undefined') {
+            //     this.product.photoUrl = '/default/defaultProduct.png';
+            // }
             if (this.product.productTagId != 1) {
                 this.product.grade = null;
             }

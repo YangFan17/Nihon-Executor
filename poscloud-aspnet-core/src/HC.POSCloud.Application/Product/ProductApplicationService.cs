@@ -194,14 +194,11 @@ namespace HC.POSCloud.Products
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [AbpAuthorize(ProductPermissions.Delete)]
-        public async Task Delete(EntityDto<Guid> input)
+        public async Task DeleteProductByIdAsync(Guid id)
         {
             //TODO:删除前的逻辑判断，是否允许删除
-            await _entityRepository.DeleteAsync(input.Id);
+            await _entityRepository.DeleteAsync(id);
         }
-
-
 
         /// <summary>
         /// 批量删除Product的方法

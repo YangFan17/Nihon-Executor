@@ -1,0 +1,73 @@
+<!--component html goes here -->
+<page-header [title]=""></page-header>
+<nz-card>
+    <form nz-form (ngSubmit)="refreshData(false,true)" [nzLayout]="'inline'">
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="8" class="mb-md">
+                <nz-form-item class="d-flex">
+                    <nz-form-label nzFor="filter">客户编码/姓名</nz-form-label>
+                    <nz-form-control class="flex-1">
+                        <input nz-input [(ngModel)]="search.filter" name="filter" placeholder="请输入客户编码或姓名" nzSize="default">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8" class="mb-md">
+                <nz-form-item class="d-flex">
+                    <nz-form-label nzFor="isAction">状态</nz-form-label>
+                    <nz-form-control class="flex-1">
+                        <nz-select [nzPlaceHolder]="'请选择状态'" name="status" [(ngModel)]="search.isAction" [nzShowSearch]="true">
+                            <nz-option *ngFor="let i of status" [nzLabel]="i.text" [nzValue]="i.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="6" class="mb-md right" [class.text-right]="'true'" style="float: right;">
+                <nz-form-item class="d-flex" style="margin-right: 0px;">
+                    <nz-form-control class="flex-1">
+                        <button nz-button type="submit" nzType="primary" [nzLoading]="loading">查询</button>
+                        <button nz-button type="button" (click)="refreshData(true)" class="mx-sm">重置</button>
+                        <button nz-button type="button" (click)="createRetailer()" nzType="primary">
+                            <i class="anticon anticon-plus"></i>
+                            <span>新建</span>
+                        </button>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+    <ng-template #totalTemplate let-total>共 {{query.total}} 条</ng-template>
+    <nz-table #nzTable [nzData]="retailerList" [nzFrontPagination]="false" [nzTotal]="query.total" [nzShowTotal]="totalTemplate" [(nzPageIndex)]="query.pageIndex" [(nzPageSize)]="query.pageSize" [nzLoading]="loading" [nzShowSizeChanger]="true" (nzPageIndexChange)="refreshData()"
+        (nzPageSizeChange)="refreshData()">
+        <thead>
+            <tr>
+                <th>客户编码</th>
+                <th>姓名</th>
+                <th>客户分档</th>
+                <th>终端授权码</th>
+                <th>订货电话</th>
+                <th>客户经理</th>
+                <th>专卖证号</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of nzTable.data">
+                <td>{{data.code}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.archivalLevel}}</td>
+                <td>{{data.retailerAuthorizationCode}}</td>
+                <td>{{data.telephone}}</td>
+                <td>{{data.slsmanName}}</td>
+                <td>{{data.licenseKey}}</td>
+                <td>
+                    <nz-badge [nzStatus]="data.actionType" [nzText]="data.actionText"></nz-badge>
+                </td>
+                <td>
+                    <a (click)="goDetail(data.id)">查看详情</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

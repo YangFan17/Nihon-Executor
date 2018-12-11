@@ -35,7 +35,12 @@ const routes: Routes = [
       },
       {
         path: 'product',
-        loadChildren: './product-center/product-center.module#ProductModule', // Lazy load account module
+        loadChildren: './product-center/product-center.module#ProductCenterModule', // Lazy load account module
+        data: { preload: true },
+      },
+      {
+        path: 'basic',
+        loadChildren: './basic-data/basic-data.module#BasicDataModule', // Lazy load account module
         data: { preload: true },
       },
       {

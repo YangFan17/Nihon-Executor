@@ -29,7 +29,7 @@ import { environment } from '@env/environment';
 
 import { AdPageHeaderConfig } from '@delon/abc';
 export function pageHeaderConfig(): AdPageHeaderConfig {
-  return Object.assign(new AdPageHeaderConfig(), { home_i18n: 'home' });
+  return Object.assign(new AdPageHeaderConfig(), { home_i18n: '主页' });
 }
 
 import { DelonAuthConfig } from '@delon/auth';
@@ -60,7 +60,7 @@ export class DelonModule {
     @Optional()
     @SkipSelf()
     parentModule: DelonModule,
-  ) {}
+  ) { }
 
   static forRoot(): ModuleWithProviders {
     return {

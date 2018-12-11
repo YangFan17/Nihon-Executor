@@ -11,7 +11,7 @@ export class Product implements IProduct {
     showPhoto: string;
     pinYinCode: string;
     isEnable: number;
-    lable: boolean;
+    lable: string;
     grade: number;
     productTagName: string;
 
@@ -119,7 +119,7 @@ export interface IProduct {
     showPhoto: string;
     pinYinCode: string;
     isEnable: number;
-    lable: boolean;
+    lable: string;
     grade: number;
     productTagName: string;
 

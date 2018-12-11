@@ -3,8 +3,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AbpHttpInterceptor } from 'abp-ng2-module/dist/src/abpHttpInterceptor';
 
 import * as ApiServiceProxies from '@shared/service-proxies/service-proxies';
-import { ProductServiceProxy } from './product-center/product-service';
+import { ProductServiceProxy } from './product-center/product.service';
 import { PosCloudHttpClient } from './poscloud-httpclient';
+import { RetailerServiceProxy } from './basic-data';
 
 @NgModule({
   providers: [
@@ -17,6 +18,7 @@ import { PosCloudHttpClient } from './poscloud-httpclient';
     ApiServiceProxies.ConfigurationServiceProxy,
     PosCloudHttpClient,
     ProductServiceProxy,
+    RetailerServiceProxy,
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
   ],
 })

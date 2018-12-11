@@ -1,13 +1,20 @@
 <nz-card [nzBordered]="false" nzTitle="{{cardTitle}}">
     <form nz-form [formGroup]="validateForm" *ngIf="product">
-        <div nz-row>
+        <div nz-row [nzGutter]="24">
             <div nz-col [nzSpan]="16">
                 <nz-form-item nz-row>
                     <nz-form-label nz-col [nzSm]="4" nzRequired>商品名称</nz-form-label>
                     <nz-form-control [nzSm]="20" nzHasFeedback>
                         <input nz-input formControlName="name" [(ngModel)]="product.name" id="name">
-                        <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('maxlength')">字符长度小于等于200</nz-form-explain>
                         <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('required')">请输入商品名称</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4">拼音码</nz-form-label>
+                    <nz-form-control [nzSm]="20" nzHasFeedback>
+                        <input nz-input formControlName="pinYinCode" [(ngModel)]="product.pinYinCode" id="pinYinCode">
+                        <nz-form-explain *ngIf="validateForm.get('pinYinCode').dirty&&validateForm.get('pinYinCode').hasError('maxlength')">字符长度小于等于200</nz-form-explain>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item nz-row>
@@ -59,6 +66,25 @@
                         <input nz-input formControlName="barCode" [(ngModel)]="product.barCode" id="barCode">
                         <nz-form-explain *ngIf="validateForm.get('barCode').dirty&&validateForm.get('barCode').hasError('pattern')">请输入正确的条码</nz-form-explain>
                         <nz-form-explain *ngIf="validateForm.get('barCode').dirty&&validateForm.get('barCode').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col [nzSm]="4" nzFor="lable">商品标签</nz-form-label>
+                    <nz-form-control nz-col [nzSm]="20">
+                        <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+                            <input type="text" formControlName="lable" [(ngModel)]="lablesText" nz-input placeholder="请输入商品标签">
+                        </nz-input-group>
+                        <ng-template #suffixIconButton>
+                            <button nz-button nzType="primary" (click)="addLable(lablesText)" [disabled]="!validateForm.get('lable').valid" nzSearch>
+                                <i nz-icon type="plus-circle" theme="twotone"></i> </button>
+                        </ng-template>
+                        <nz-tag *ngFor="let item of lableList" nzMode="closeable" (nzOnClose)="onClose($event, item)">{{item}}</nz-tag>
+
+                        <nz-form-explain *ngIf="validateForm.get('lable').dirty&&validateForm.get('lable').hasError('maxlength')">字符长度小于等于30</nz-form-explain>
+                    </nz-form-control>
+                    <nz-form-control nz-col [nzSm]="20">
+
+                        <!-- <nz-tag *ngFor="let item of lableList" nzClosable (nzClose)="onClose($event, item)">{{item}}</nz-tag> -->
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item nz-row>

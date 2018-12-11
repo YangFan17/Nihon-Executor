@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
 import { NzModalService, NzModalRef, UploadFile } from 'ng-zorro-antd';
 import { Product, SelectGroup } from '@shared/entity/product-center';
-import { ProductServiceProxy } from '@shared/service-proxies/product-center/product-service';
 import { AppComponentBase } from '@shared/app-component-base';
+import { ProductServiceProxy } from '@shared/service-proxies/product-center';
 
 @Component({
     moduleId: module.id,
@@ -30,6 +30,8 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
     isDelete = false;
     productTypes: SelectGroup[] = [];
     tempGrade?: number;
+    lableList: string[] = [];
+    lablesText: string;
     constructor(injector: Injector
         , private fb: FormBuilder
         , private actRouter: ActivatedRoute
@@ -42,7 +44,8 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
 
     ngOnInit(): void {
         this.validateForm = this.fb.group({
-            name: [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
+            name: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
+            pinYinCode: [null, Validators.compose([Validators.maxLength(200)])],
             productType: [null, Validators.compose([Validators.required])],
             unit: [null, Validators.compose([Validators.maxLength(50)])],
             barCode: [null, [Validators.compose([Validators.pattern(/^\+?[1-9][0-9]*$/), Validators.maxLength(50)])]],
@@ -50,7 +53,8 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
             retailPrice: [null, Validators.compose([Validators.pattern(/^(?:[1-9]\d*|0)(?:\.\d{1,2})?$/), Validators.maxLength(18)])],
             desc: [null, Validators.compose([Validators.maxLength(500)])],
             isEnable: [null, Validators.compose([Validators.required])],
-            grade: null
+            grade: null,
+            lable: [null, Validators.compose([Validators.maxLength(30)])]
         });
         this.getProductTypes();
     }
@@ -72,6 +76,9 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
                 this.tempGrade = result.grade;
                 if (result.photoUrl) {
                     this.product.showPhoto = this.host + this.product.photoUrl;
+                }
+                if (this.product.lable != null && this.product.lable.length != 0) {
+                    this.lableList = this.product.lable.split(',');
                 }
                 this.isDelete = true;
             });
@@ -133,6 +140,9 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
             if (this.product.productTagId != 1) {
                 this.product.grade = null;
             }
+            if (this.lableList.length > 0) {
+                this.product.lable = this.lableList.join(',');
+            }
             this.productService.updateProductInfo(this.product).finally(() => { this.isConfirmLoading = false; })
                 .subscribe((result: Product) => {
                     this.product = result;
@@ -147,5 +157,52 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit {
 
     return() {
         this.router.navigate(['app/product/product']);
+    }
+
+    addLable(lablesText: string) {
+        if (lablesText != null && lablesText.trim().length !== 0 && !this.existsLables(lablesText)) {
+            this.lablesText = this.lablesText.replace(/ /g, '').replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\+|\=|\||\\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?]/g, "")
+            this.lableList.push(this.lablesText);
+            if (this.product.id) {
+                this.product.lable = this.lableList.join(',');
+                this.productService.updateProductLable(this.product)
+                    .subscribe((data) => {
+                        this.product.lable = data.lable;
+                    });
+            }
+        }
+        this.lablesText = null;
+    }
+
+    existsLables(lablesText: string): boolean {
+        let bo = false;
+        this.lableList.forEach(v => {
+            if (v == lablesText) {
+                bo = true;
+                return;
+            }
+        });
+        return bo;
+    }
+
+    onClose(event: Event, lablesText: string): void {
+        let i = 0;
+        this.lableList.forEach(v => {
+            if (v == lablesText) {
+                this.lableList.splice(i, 1);
+                return;
+            }
+            i++;
+        });
+        if (this.lableList.length < 0) {
+            this.lableList = null;
+        }
+        if (this.product.id) {
+            this.product.lable = this.lableList.join(',');
+            this.productService.updateProductLable(this.product)
+                .subscribe((data) => {
+                    this.product.lable = data.lable;
+                });
+        }
     }
 }

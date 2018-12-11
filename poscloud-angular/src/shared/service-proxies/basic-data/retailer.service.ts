@@ -7,10 +7,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 import { PosCloudHttpClient } from '../poscloud-httpclient';
-import { Product, ProductTag, SelectGroup } from '@shared/entity/product-center';
+import { Retailer } from '@shared/entity/basic-data';
 
 @Injectable()
-export class ProductServiceProxy {
+export class RetailerServiceProxy {
     private http: HttpClient;
     private _poshttp: PosCloudHttpClient;
     private baseUrl: string;
@@ -21,103 +21,61 @@ export class ProductServiceProxy {
         this.baseUrl = baseUrl ? baseUrl : "";
         this._poshttp = poshttp;
     }
-    getProductListAsync(params: any): Observable<PagedResultDtoOfProduct> {
-        let url_ = "/api/services/app/Product/GetPagedProductListAsync";
+    getRetailerListAsync(params: any): Observable<PagedResultDtoOfRetailer> {
+        let url_ = "/api/services/app/Retailer/GetPagedRetailerListAsync";
         return this._poshttp.get(url_, params).map(data => {
             if (data) {
-                return PagedResultDtoOfProduct.fromJS(data);
+                return PagedResultDtoOfRetailer.fromJS(data);
             } else {
                 return null;
             }
         });
     }
 
-    getProductByIdAsync(params: any): Observable<Product> {
-        let url_ = "/api/services/app/Product/GetProductByIdAsync";
+    getRetailerByIdAsync(params: any): Observable<Retailer> {
+        let url_ = "/api/services/app/Retailer/GetRetailerByIdAsync";
         return this._poshttp.get(url_, params).map(data => {
             if (data) {
-                return Product.fromJS(data);
+                return Retailer.fromJS(data);
             } else {
                 return null;
             }
         });
     }
 
-    updateProductInfo(room: any): Observable<Product> {
-        let url_ = "/api/services/app/Product/CreateOrUpdateProductAsync";
+    updateRetailerInfo(room: any): Observable<Retailer> {
+        let url_ = "/api/services/app/Retailer/CreateOrUpdateRetailerByIdAsync";
         return this._poshttp.post(url_, room).map(data => {
             return data;
         });
     }
 
-    getProductTagByIdAsync(params: any): Observable<ProductTag> {
-        let url_ = "/api/services/app/ProductTag/GetProductTagByIdAsync";
+
+    getRetailerById(params: any): Observable<Retailer> {
+        let url_ = "/api/services/app/Retailer/GetRetailerByIdAsync";
         return this._poshttp.get(url_, params).map(data => {
             if (data) {
-                return ProductTag.fromJS(data);
+                return Retailer.fromJS(data);
             } else {
                 return null;
             }
         });
     }
 
-    getProductTagById(params: any): Observable<Product> {
-        let url_ = "/api/services/app/ProductTag/GetProductTagByIdAsync";
-        return this._poshttp.get(url_, params).map(data => {
-            if (data) {
-                return Product.fromJS(data);
-            } else {
-                return null;
-            }
-        });
-    }
-
-    getProductTagsSelectGroup(): Observable<SelectGroup[]> {
-        let url_ = "/api/services/app/ProductTag/GetProductTagsSelectGroup";
-        return this._poshttp.get(url_).map(data => {
-            if (data) {
-                return SelectGroup.fromJSArray(data);
-            } else {
-                return null;
-            }
-        });
-    }
-
-    createProductTag(input: ProductTag): Observable<ProductTag> {
-        let url_ = "/api/services/app/ProductTag/CreateProductTagAsync";
-        return this._poshttp.post(url_, input).map(data => {
-            return data;
-        });
-    }
-
-    updateProductTag(input: ProductTag): Observable<ProductTag> {
-        let url_ = "/api/services/app/ProductTag/EditProductTagAsync";
-        return this._poshttp.post(url_, input).map(data => {
-            return data;
-        });
-    }
-
-    deleteProduct(id: string): Observable<any> {
-        let url_ = "/api/services/app/Product/DeleteProductByIdAsync";
+    deleteRetailer(id: string): Observable<any> {
+        let url_ = "/api/services/app/Retailer/DeleteRetailerByIdAsync";
         var param = { id: id };
         return this._poshttp.delete(url_, param).map(data => {
             return data;
         });
     }
-
-    getTagsTreeAsync(): Observable<any> {
-        let url_ = "/api/services/app/ProductTag/GetTagTreesAsync";
-        return this._poshttp.get(url_, {}).map(data => {
-            return data;
-        });
-    }
 }
 
-export class PagedResultDtoOfProduct implements IPagedResultDtoOfProduct {
+export class PagedResultDtoOfRetailer implements IPagedResultDtoOfRetailer {
     totalCount: number;
-    items: Product[];
+    items: Retailer[];
 
-    constructor(data?: IPagedResultDtoOfProduct) {
+    constructor(data?: IPagedResultDtoOfRetailer) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -132,13 +90,13 @@ export class PagedResultDtoOfProduct implements IPagedResultDtoOfProduct {
             if (data["items"] && data["items"].constructor === Array) {
                 this.items = [];
                 for (let item of data["items"])
-                    this.items.push(Product.fromJS(item));
+                    this.items.push(Retailer.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): PagedResultDtoOfProduct {
-        let result = new PagedResultDtoOfProduct();
+    static fromJS(data: any): PagedResultDtoOfRetailer {
+        let result = new PagedResultDtoOfRetailer();
         result.init(data);
         return result;
     }
@@ -156,13 +114,13 @@ export class PagedResultDtoOfProduct implements IPagedResultDtoOfProduct {
 
     clone() {
         const json = this.toJSON();
-        let result = new PagedResultDtoOfProduct();
+        let result = new PagedResultDtoOfRetailer();
         result.init(json);
         return result;
     }
 }
 
-export interface IPagedResultDtoOfProduct {
+export interface IPagedResultDtoOfRetailer {
     totalCount: number;
-    items: Product[];
+    items: Retailer[];
 }

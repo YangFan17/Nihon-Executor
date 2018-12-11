@@ -7,8 +7,7 @@ import { LayoutModule } from '@app/layout/layout.module';
 import { SharedModule } from '@shared/shared.module';
 import { AbpModule } from 'abp-ng2-module/dist/src/abp.module';
 import { LocalizationService } from 'abp-ng2-module/dist/src/localization/localization.service';
-import { ProductTagComponent } from './product-tag/product-tag.component';
-import { BasicRoutingModule } from './product-center-routing.module';
+import { ProductCenterRoutingModule } from './product-center-routing.module';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { CreateTagComponent } from './product-tag/create-tag/create-tag.component';
 import { EditTagComponent } from './product-tag/edit-tag/edit-tag.component';
@@ -22,11 +21,10 @@ import { EditTagComponent } from './product-tag/edit-tag/edit-tag.component';
         LayoutModule,
         SharedModule,
         AbpModule,
-        BasicRoutingModule
+        ProductCenterRoutingModule
     ],
     declarations: [
         ProductComponent,
-        ProductTagComponent,
         ProductDetailComponent,
         EditTagComponent,
         CreateTagComponent
@@ -35,4 +33,4 @@ import { EditTagComponent } from './product-tag/edit-tag/edit-tag.component';
     ],
     providers: [LocalizationService],
 })
-export class ProductModule { }
+export class ProductCenterModule { }

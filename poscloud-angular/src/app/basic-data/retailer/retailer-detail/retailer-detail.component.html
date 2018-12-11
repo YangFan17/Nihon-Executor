@@ -1,0 +1,171 @@
+<nz-card [nzBordered]="false" nzTitle="{{cardTitle}}">
+    <form nz-form [formGroup]="validateForm" *ngIf="retailer">
+        <div nz-row [nzGutter]="24">
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzRequired>客户姓名</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="name" [(ngModel)]="retailer.name" id="name">
+                        <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('name').dirty&&validateForm.get('name').hasError('required')">请输入客户姓名</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzRequired>客户编码</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="code" [(ngModel)]="retailer.code" id="code">
+                        <nz-form-explain *ngIf="validateForm.get('code').dirty&&validateForm.get('code').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('code').dirty&&validateForm.get('code').hasError('required')">请输入客户编码</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('code').dirty&&validateForm.get('code').hasError('minlength')">字符长度大于等于6</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>客户经理</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="slsmanName" [(ngModel)]="retailer.slsmanName" id="slsmanName">
+                        <nz-form-explain *ngIf="validateForm.get('slsmanName').dirty&&validateForm.get('slsmanName').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzRequired>专卖证号</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="licenseKey" [(ngModel)]="retailer.licenseKey" id="licenseKey">
+                        <nz-form-explain *ngIf="validateForm.get('licenseKey').dirty&&validateForm.get('licenseKey').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('licenseKey').dirty&&validateForm.get('licenseKey').hasError('required')">请输入专卖证号</nz-form-explain>
+                        <nz-form-explain *ngIf="validateForm.get('licenseKey').dirty&&validateForm.get('licenseKey').hasError('minlength')">字符长度大于等于6</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>经营地址</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="businessAddress" [(ngModel)]="retailer.businessAddress" id="businessAddress">
+                        <nz-form-explain *ngIf="validateForm.get('businessAddress').dirty&&validateForm.get('businessAddress').hasError('maxlength')">字符长度小于等于50</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>客户分档</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="archivalLevel" [(ngModel)]="retailer.archivalLevel" id="archivalLevel">
+                        <nz-form-explain *ngIf="validateForm.get('archivalLevel').dirty&&validateForm.get('archivalLevel').hasError('maxlength')">字符长度小于等于100</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>订货电话</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="telephone" [(ngModel)]="retailer.telephone" id="telephone">
+                        <nz-form-explain *ngIf="validateForm.get('telephone').dirty&&validateForm.get('telephone').hasError('maxlength')">字符长度小于等于100</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzFor="orderMode">订货方式</nz-form-label>
+                    <nz-form-control nz-col>
+                        <nz-select formControlName="orderMode" [nzPlaceHolder]="'请选择订货方式'" name="orderMode" [(ngModel)]="retailer.orderMode">
+                            <nz-option *ngFor="let i of orderModeTypes" [nzLabel]="i.text" [nzValue]="i.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>订货周期</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="orderCycle" [(ngModel)]="retailer.orderCycle" id="orderCycle">
+                        <nz-form-explain *ngIf="validateForm.get('orderCycle').dirty&&validateForm.get('orderCycle').hasError('maxlength')">字符长度小于等于100</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzFor="terminalType">终端类型</nz-form-label>
+                    <nz-form-control nz-col>
+                        <nz-select formControlName="terminalType" [nzPlaceHolder]="'请选择终端类型'" name="terminalType" [(ngModel)]="retailer.terminalType">
+                            <nz-option *ngFor="let i of terminalTypes" [nzLabel]="i.text" [nzValue]="i.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>商圈类型</nz-form-label>
+                    <nz-form-control nz-col>
+                        <input nz-input formControlName="businessType" [(ngModel)]="retailer.businessType" id="businessType">
+                        <nz-form-explain *ngIf="validateForm.get('businessType').dirty&&validateForm.get('businessType').hasError('maxlength')">字符长度小于等于100</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzFor="area">所在区域</nz-form-label>
+                    <nz-form-control nz-col nzHasFeedback>
+                        <input nz-input formControlName="area" [(ngModel)]="retailer.area" id="area">
+                        <nz-form-explain *ngIf="validateForm.get('area').dirty&&validateForm.get('area').hasError('maxlength')">字符长度小于等于100</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col nzRequired nzFor="isAction">客户状态</nz-form-label>
+                    <nz-form-control nz-col>
+                        <nz-select formControlName="isAction" [nzPlaceHolder]="'请选择客户状态'" name="isAction" [(ngModel)]="retailer.isAction">
+                            <nz-option *ngFor="let i of isActionTypes" [nzLabel]="i.text" [nzValue]="i.value">
+                            </nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>分公司</nz-form-label>
+                    <nz-form-control nz-col>
+                        <input nz-input formControlName="branchCompany" [(ngModel)]="retailer.branchCompany" id="branchCompany">
+                        <nz-form-explain *ngIf="validateForm.get('branchCompany').dirty&&validateForm.get('branchCompany').hasError('maxlength')">字符长度小于等于200</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzMd="8" nzSm="12" nzXs="24">
+                <nz-form-item nz-row>
+                    <nz-form-label nz-col>市场部</nz-form-label>
+                    <nz-form-control nz-col>
+                        <input nz-input formControlName="department" [(ngModel)]="retailer.department" id="department">
+                        <nz-form-explain *ngIf="validateForm.get('department').dirty&&validateForm.get('department').hasError('maxlength')">字符长度小于等于100</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+    <footer-toolbar errorCollect>
+        <button nz-button [nzType]="'default'" (click)="return()">
+            {{l("返回")}}
+        </button>
+        <button nz-button *ngIf="isDelete" [nzType]="'danger'" (click)="delete(deleteContent)" [nzLoading]="isConfirmLoading">
+            {{l("删除")}}
+        </button>
+        <button nz-button [nzType]="'primary'" type="button" (click)="save()" [nzLoading]="isConfirmLoading" [disabled]="!validateForm.valid">
+            {{l("保存")}}
+        </button>
+    </footer-toolbar>
+</nz-card>

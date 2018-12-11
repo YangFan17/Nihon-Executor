@@ -1,11 +1,11 @@
 import { Component, OnInit, Injector, ViewChild, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { Router } from '@angular/router';
-import { ProductServiceProxy, PagedResultDtoOfProduct } from '@shared/service-proxies/product-center/product-service';
 import { Product } from '@shared/entity/product-center';
 import { NzTreeNode, NzFormatEmitEvent, NzDropdownContextComponent, NzTreeComponent, NzDropdownService } from 'ng-zorro-antd';
 import { EditTagComponent } from '../product-tag/edit-tag/edit-tag.component';
 import { CreateTagComponent } from '../product-tag/create-tag/create-tag.component';
+import { ProductServiceProxy, PagedResultDtoOfProduct } from '@shared/service-proxies/product-center';
 
 @Component({
     moduleId: module.id,

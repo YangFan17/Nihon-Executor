@@ -209,6 +209,23 @@ namespace HC.POSCloud.Products
             // TODO:批量删除前的逻辑判断，是否允许删除
             await _entityRepository.DeleteAsync(s => input.Contains(s.Id));
         }
+
+        /// <summary>
+        /// 更新商品标签
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<ProductListDto> CreateOrUpdateProductLable(ProductEditDto input)
+        {
+            var entity = await _entityRepository.GetAsync(input.Id.Value);
+            entity.Lable = input.Lable;
+            if (string.IsNullOrEmpty(input.Lable))
+            {
+                entity.Lable = null;
+            }
+            var result = await _entityRepository.UpdateAsync(entity);
+            return result.MapTo<ProductListDto>();
+        }
     }
 }
 

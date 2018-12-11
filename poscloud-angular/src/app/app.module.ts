@@ -35,7 +35,6 @@ import { EditUserComponent } from '@app/system/users/edit-user/edit-user.compone
   declarations: [
     AppComponent,
     HomeComponent,
-    // AboutComponent,
     TenantsComponent,
     UsersComponent,
     RolesComponent,

@@ -5,6 +5,8 @@ using HC.POSCloud.Authorization.Users;
 using HC.POSCloud.MultiTenancy;
 using HC.POSCloud.Products;
 using HC.POSCloud.ProductTags;
+using HC.POSCloud.Retailers;
+using HC.POSCloud.Members;
 
 namespace HC.POSCloud.EntityFrameworkCore
 {
@@ -19,6 +21,7 @@ namespace HC.POSCloud.EntityFrameworkCore
 
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductTag> ProductTags { get; set; }
-
+        public virtual DbSet<Retailer> Retailers { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
     }
 }

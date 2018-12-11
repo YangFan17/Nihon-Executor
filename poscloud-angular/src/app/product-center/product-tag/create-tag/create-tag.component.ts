@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, Injector, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { ProductServiceProxy } from '@shared/service-proxies/product-center/product-service';
 import { ProductTag } from '@shared/entity/product-center';
 import { AppComponentBase } from '@shared/app-component-base';
+import { ProductServiceProxy } from '@shared/service-proxies/product-center';
 
 @Component({
     moduleId: module.id,

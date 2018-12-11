@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SignalRAspNetCoreHelper } from '@shared/helpers/SignalRAspNetCoreHelper';
 import { AppComponentBase } from '@shared/app-component-base';
 import { Injector } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { SettingsService, TitleService, MenuService, Menu } from '@delon/theme';
+import { SettingsService, MenuService, Menu } from '@delon/theme';
 import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HostBinding } from '@angular/core';
-import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
-import { AppConsts } from '@shared/AppConsts';
 import { MenuItem } from '@shared/layout/menu-item';
 
 @Component({
@@ -36,18 +33,20 @@ export class AppComponent extends AppComponentBase
   Menums = [
     // 首页
     new MenuItem(this.l('HomePage'), '', 'anticon anticon-home', '/app/home'),
-    new MenuItem('基础数据',
+    new MenuItem(
+      '基础数据',
       '',
       'anticon anticon-hdd',
-      '/app/home',
+      '',
       [
         new MenuItem(
           '零售客户',
-          'Pages.Tenants',
           '',
-          '/app/tenants',
-        ),
-      ]),
+          '',
+          '/app/basic/retailer',
+        )
+      ]
+    ),
     new MenuItem(
       '商品中心',
       '',

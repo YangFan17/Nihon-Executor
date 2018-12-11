@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input, Injector } from '@angular/core';
 import { ModalFormComponentBase } from '@shared/component-base/modal-form-component-base';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { ProductServiceProxy } from '@shared/service-proxies/product-center/product-service';
 import { ProductTag } from '@shared/entity/product-center';
 import { AppComponentBase } from '@shared/app-component-base';
+import { ProductServiceProxy } from '@shared/service-proxies/product-center';
 
 @Component({
     moduleId: module.id,

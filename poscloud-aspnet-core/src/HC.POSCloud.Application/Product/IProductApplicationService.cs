@@ -36,10 +36,10 @@ namespace HC.POSCloud.Products
         Task<PagedResultDto<ProductListDto>> GetPagedProductListAsync(GetProductsInput input);
 
 
-		/// <summary>
-		/// 通过指定id获取ProductListDto信息
-		/// </summary>
-		Task<ProductListDto> GetProductByIdAsync(Guid id);
+        /// <summary>
+        /// 通过指定id获取ProductListDto信息
+        /// </summary>
+        Task<ProductListDto> GetProductByIdAsync(Guid id);
 
 
         /// <summary>
@@ -70,5 +70,6 @@ namespace HC.POSCloud.Products
         /// 批量删除Product
         /// </summary>
         Task BatchDelete(List<Guid> input);
+        Task<ProductListDto> CreateOrUpdateProductLable(ProductEditDto input);
     }
 }
